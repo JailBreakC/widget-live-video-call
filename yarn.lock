@@ -408,7 +408,14 @@ after@0.8.2:
   resolved "https://registry.yarnpkg.com/after/-/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
   integrity sha512-QbJ0NTQ/I9DI3uSJA4cbexiwQeRAfjPScqIbSjUDd9TOrcg6pTkdgziesOqxBMBzit8vFCTwrP27t13vFOORRA==
 
-agora-rtc-sdk-ng@^4.11.1:
+agora-rtc-react@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmmirror.com/agora-rtc-react/-/agora-rtc-react-1.1.1.tgz#3216349cc9e5f13a4b6a51db2aec0cac680fb2dc"
+  integrity sha512-0KTgAlVNEFyM6WH2F0Xxa+JhvP+erh0/7mCT7455TF6Wsnu83SKXtD7E8n6s3YsHdwciZfvUntQ9/ApRmipl+w==
+  dependencies:
+    agora-rtc-sdk-ng "^4.3.0"
+
+agora-rtc-sdk-ng@^4.11.1, agora-rtc-sdk-ng@^4.3.0:
   version "4.11.1"
   resolved "https://registry.npmmirror.com/agora-rtc-sdk-ng/-/agora-rtc-sdk-ng-4.11.1.tgz#d63accd6a678ea4e17748f431919bc5aa9b1f7f1"
   integrity sha512-BUr0DK4Uq13lzsULVldp15sJYDTeDfDao9T6thsSQkT2jSTTQvuC01vz2H8/eA32ZGhsAeTaL2UcsULDbCkplg==

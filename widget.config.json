@@ -1,0 +1,17 @@
+{
+  "packageId": "wpkUSwqk8Wgps",
+  "spaceId": "spczdmQDfBAn5",
+  "entry": "./src/index.tsx",
+  "name": {
+    "zh-CN": "liveVideoCall",
+    "en-US": "liveVideoCall"
+  },
+  "icon": "./package_icon.png",
+  "cover": "./cover.png",
+  "authorIcon": "./author_icon.png",
+  "description": {
+    "zh-CN": "liveVideoCall 的描述",
+    "en-US": "liveVideoCall description"
+  },
+  "sandbox": true
+}

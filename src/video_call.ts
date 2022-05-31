@@ -1,3 +1,4 @@
+import AgoraRTC from 'agora-rtc-sdk-ng';
 /*
  *  These procedures use Agora Video Call SDK for Web to enable local and remote
  *  users to join and leave a Video Call channel managed by Agora Platform.
@@ -9,12 +10,12 @@
  * @param {string} mode - The {@link https://docs.agora.io/en/Voice/API%20Reference/web_ng/interfaces/clientconfig.html#mode| streaming algorithm} used by Agora SDK.
  * @param  {string} codec - The {@link https://docs.agora.io/en/Voice/API%20Reference/web_ng/interfaces/clientconfig.html#codec| client codec} used by the browser.
  */
-var client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
+const client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
 
 /*
  * Clear the video and audio tracks used by `client` on initiation.
  */
-var localTracks = {
+const localTracks: any = {
   videoTrack: null,
   audioTrack: null
 };
@@ -22,17 +23,8 @@ var localTracks = {
 /*
  * On initiation no users are connected.
  */
-var remoteUsers = {};
+const remoteUsers = {};
 
-/*
- * On initiation. `client` is not attached to any project or channel for any specific user.
- */
-var options = {
-  appid: null,
-  channel: null,
-  uid: null,
-  token: null
-};
 
 AgoraRTC.onAutoplayFailed = () => {
   alert("click to start autoplay!")
@@ -59,25 +51,6 @@ AgoraRTC.onCameraChanged = async (changedDevice) => {
     oldCameras[0] && localTracks.videoTrack.setDevice(oldCameras[0].deviceId);
   }
 }
-
-/*
- * When this page is called with parameters in the URL, this procedure
- * attempts to join a Video Call channel using those parameters.
- */
-$(() => {
-  var urlParams = new URL(location.href).searchParams;
-  options.appid = urlParams.get("appid");
-  options.channel = urlParams.get("channel");
-  options.token = urlParams.get("token");
-  options.uid = urlParams.get("uid");
-  if (options.appid && options.channel) {
-    $("#uid").val(options.uid);
-    $("#appid").val(options.appid);
-    $("#token").val(options.token);
-    $("#channel").val(options.channel);
-    $("#join-form").submit();
-  }
-})
 
 /*
  * When a user clicks Join or Leave in the HTML form, this procedure gathers the information
@@ -116,14 +89,14 @@ $("#leave").click(function (e) {
 /*
  * Join a channel, then create local video and audio tracks and publish them to the channel.
  */
-async function join() {
+export async function join(options: { uid: string | number | undefined, appid: string, channel: string, token: string}) {
 
   // Add an event listener to play remote tracks when remote user publishes.
   client.on("user-published", handleUserPublished);
   client.on("user-unpublished", handleUserUnpublished);
 
   // Join a channel and create local tracks. Best practice is to use Promise.all and run them concurrently.
-  [ options.uid, localTracks.audioTrack, localTracks.videoTrack ] = await Promise.all([
+  const [ uid, audioTrack, videoTrack ] = await Promise.all([
     // Join the channel.
     client.join(options.appid, options.channel, options.token || null, options.uid || null),
     // Create tracks to the local microphone and camera.
@@ -132,38 +105,23 @@ async function join() {
   ]);
 
   // Play the local video track to the local browser and update the UI with the user ID.
-  localTracks.videoTrack.play("local-player");
-  $("#local-player-name").text(`localVideo(${options.uid})`);
+  videoTrack.play("local-player");
+  
 
   // Publish the local video and audio tracks to the channel.
-  await client.publish(Object.values(localTracks));
+  await client.publish([audioTrack, videoTrack]);
   console.log("publish success");
-}
-
-/*
- * Stop all local and remote tracks then leave the channel.
- */
-async function leave() {
-  for (trackName in localTracks) {
-    var track = localTracks[trackName];
-    if(track) {
-      track.stop();
-      track.close();
-      localTracks[trackName] = undefined;
+  return {
+    localPlayerName: uid,
+    tracks: [audioTrack, videoTrack],
+    async leave() {
+      audioTrack.stop();
+      audioTrack.close();
+      videoTrack.stop();
+      videoTrack.close();
+      await client.leave();
     }
   }
-
-  // Remove remote users and player views.
-  remoteUsers = {};
-  $("#remote-playerlist").html("");
-
-  // leave the channel
-  await client.leave();
-
-  $("#local-player-name").text("");
-  $("#join").attr("disabled", false);
-  $("#leave").attr("disabled", true);
-  console.log("client leaves channel success");
 }
 
 

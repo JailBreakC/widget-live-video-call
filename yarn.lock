@@ -408,6 +408,18 @@ after@0.8.2:
   resolved "https://registry.yarnpkg.com/after/-/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
   integrity sha512-QbJ0NTQ/I9DI3uSJA4cbexiwQeRAfjPScqIbSjUDd9TOrcg6pTkdgziesOqxBMBzit8vFCTwrP27t13vFOORRA==
 
+agora-rtc-sdk-ng@^4.11.1:
+  version "4.11.1"
+  resolved "https://registry.npmmirror.com/agora-rtc-sdk-ng/-/agora-rtc-sdk-ng-4.11.1.tgz#d63accd6a678ea4e17748f431919bc5aa9b1f7f1"
+  integrity sha512-BUr0DK4Uq13lzsULVldp15sJYDTeDfDao9T6thsSQkT2jSTTQvuC01vz2H8/eA32ZGhsAeTaL2UcsULDbCkplg==
+  dependencies:
+    agora-rte-extension "^1.0.22"
+
+agora-rte-extension@^1.0.22:
+  version "1.0.23"
+  resolved "https://registry.npmmirror.com/agora-rte-extension/-/agora-rte-extension-1.0.23.tgz#54a7215fd2cdcf2553d83570530950054f1e59a6"
+  integrity sha512-X2cGBg+L5ZJIFU91qvMASvRsBfg1HXTktVG3YROw9wxHsILSI7jgF9R9XraLc3fNX/UjovaYAlUW+hiJe0v6Xw==
+
 ahooks@^2.10.0:
   version "2.10.14"
   resolved "https://registry.yarnpkg.com/ahooks/-/ahooks-2.10.14.tgz#e134a5846b610079775ba881192c9aacca9102a8"

@@ -4,6 +4,9 @@
   color: white;
 }
 
+.row > div {
+  margin: 10px;
+}
 .banner-text {
   padding: 8px 20px;
   margin: 0;
